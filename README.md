@@ -43,7 +43,8 @@ Then we need to commit changes, so we can tag the latest commit.
 ```sh
 git commit -am "bump version" &&
 ./scripts/tag.sh &&
-git push
+git push &&
+git push --tags
 ```
 
 Images are automatically built by _GitHub Actions_ whenever a new tag is pushed.
