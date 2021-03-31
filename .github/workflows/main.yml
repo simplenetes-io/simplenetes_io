@@ -1,0 +1,37 @@
+name: simplenetes_io Publish Docker image
+
+# Controls when the action will run. 
+on:
+  push:
+    tags:
+      - '*'
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build_and_push_to_registry:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Compile
+        run: |
+          sh ./scripts/compile.sh
+
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: simplenetes-io/simplenetes_io/simplenetes_io
+          path: .
+          dockerfile: ./Dockerfile
+          tag_with_ref: true
