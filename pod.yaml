@@ -1,6 +1,6 @@
 api: 1.0.0-beta1
 runtime: podman
-podVersion: 1.1.12
+podVersion: 1.1.13
 
 #ifdef ${DEVMODE}
 volumes:
@@ -47,9 +47,20 @@ containers:
                 - protocol: https
                   domain: simplenetes.io
                   pathBeg: /
-                - protocol: http
-                  domain: simplenetes.io www.simplenetes.io
-                  redirectToHttps: true
                 - protocol: https
                   domain: www.simplenetes.io
                   redirectPrefix: https://simplenetes.io
+#ifndef ${allowHttp}
+                # http redirects to https
+                - protocol: http
+                  domain: simplenetes.io www.simplenetes.io
+                  redirectToHttps: true
+#endif
+#ifdef ${allowHttp}
+                - protocol: http
+                  domain: simplenetes.io
+                  pathBeg: /
+                - protocol: http
+                  domain: www.simplenetes.io
+                  redirectPrefix: https://simplenetes.io
+#endif

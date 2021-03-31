@@ -27,12 +27,7 @@ curl 127.0.0.1:8181
 
 ## Releasing
 
-Compile the latest source:  
-```sh
-./scripts/compile.sh
-```
-
-Then we need to bump/set the `podVersion` in `pod.yaml`. We use the `./scripts/version.sh` script to do this.
+Bump/set the `podVersion` in `pod.yaml`. We use the `./scripts/version.sh` script to do this.
 
 Bump the version in `pod.yaml`:  
 ```sh
