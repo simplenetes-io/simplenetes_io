@@ -1,6 +1,6 @@
 api: 1.0.0-beta1
 runtime: podman
-podVersion: 1.1.13
+podVersion: 1.1.14
 
 #ifdef ${DEVMODE}
 volumes:
@@ -12,7 +12,7 @@ volumes:
 containers:
     - name: simplenetes_io
 #ifndef ${DEVMODE}
-      image: docker.pkg.github.com/simplenetes-io/simplenetes_io/simplenetes_io:${podVersion}
+      image: ghcr.io/simplenetes-io/simplenetes_io:${podVersion}
 #endif
 #ifdef ${DEVMODE}
       # In DEVMODE we use a vanilla nginx container and mount the files into it, to get the same

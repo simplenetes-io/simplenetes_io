@@ -30,8 +30,8 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: simplenetes-io/simplenetes_io/simplenetes_io
+          registry: ghcr.io
+          repository: simplenetes-io/simplenetes_io
           path: .
           dockerfile: ./Dockerfile
           tag_with_ref: true
