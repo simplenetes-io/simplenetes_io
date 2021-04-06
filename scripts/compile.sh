@@ -15,3 +15,7 @@ else
 fi
 
 cp -r src/* build/
+
+# Write data to public directory
+(cd ./data && mkdocs build)
+cp -r ./data/site/* build/public

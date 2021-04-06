@@ -2,6 +2,20 @@
 
 nginx powered site.
 
+## Dependencies
+- Python 3: https://www.python.org/downloads/
+- pip: https://pip.pypa.io/en/stable/installing/
+- mkdocs: https://www.mkdocs.org/#installing-mkdocs
+```
+pip3 install mkdocs
+# Add the install to PATH, if necessary
+# PATH=$PATH:/home/<user>/.local/bin
+```
+- mkdocs theme: https://github.com/squidfunk/mkdocs-material
+```
+pip3 install mkdocs-material
+```
+
 ## Workflow
 1. Get the pod running locally  
 ```sh
@@ -18,6 +32,11 @@ Recompile:
 ```sh
 ./scripts/compile.sh
 curl 127.0.0.1:8181
+```
+
+Note that in case an underlying virtual machine or some other factor such as shared mount is involved, it might be required to (re)set permissions:
+```
+./pod shell "chmod -R 755 /nginx_content"
 ```
 
 3. Take down pod when done
