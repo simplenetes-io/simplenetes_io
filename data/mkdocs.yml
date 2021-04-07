@@ -1,7 +1,0 @@
-site_name: Simplenetes.io
-nav:
-    - Home: index.md
-    - About: about.md
-theme: material
-repo_name: 'simplenetes-io/simplenetes'
-repo_url: 'https://github.com/simplenetes-io/simplenetes'

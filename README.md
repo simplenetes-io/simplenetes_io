@@ -1,6 +1,6 @@
 # simplenetes.io website pod
 
-nginx powered site.
+NGINX-powered site.
 
 ## Dependencies
 - Python 3: https://www.python.org/downloads/
@@ -39,7 +39,7 @@ Note that in case an underlying virtual machine or some other factor such as sha
 ./pod shell "chmod -R 755 /nginx_content"
 ```
 
-3. Take down pod when done
+3. Take down pod when done:
 ```sh
 ./pod rm
 ```

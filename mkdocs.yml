@@ -1,0 +1,80 @@
+# Names, notices and links
+site_name: Simplenetes.io
+site_url: https://simplenetes.io
+repo_name: "simplenetes-io/simplenetes"
+repo_url: "https://github.com/simplenetes-io/simplenetes"
+edit_uri: "https://github.com/simplenetes-io/simplenetes_io/edit/master/docs/"
+copyright: Copyright &copy; 2020 - 2021 Thomas Backlund and others
+
+# Presentation and structure
+nav:
+    - Simplenetes: index.md
+    - Theory: COMPONENTS.md
+    - Install: INSTALLING.md
+    - First steps:
+      - Hello Pod!: FIRSTPOD.md
+      - Hello Cluster!: DEVCLUSTER.md
+      - Hello Production!: PROVISIONING.md
+    - Production cluster: PRODCLUSTER.md
+    - Workflow: WORKFLOW.md
+    - Management: MANAGEMENT.md
+    - Image registries: REGISTRY.md
+    - Certificates: LETSENCRYPT.md
+    - CI/CD: CICD.md
+    - Proxy: PROXY.md
+    - Development: DEVELOPING-SIMPLENETES.md
+    - FAQ: FAQ.md
+
+# Plugins
+plugins:
+    - search
+
+# Theme
+theme:
+    # Base and custom settings
+    name: material
+    custom_dir: theme
+
+    # Enable or make sure certain functionalities are set
+    features:
+        - navigation.tabs
+        - navigation.top
+
+    # Images
+    logo: data/logo.png
+    favicon: data/favicon.ico
+    icon:
+      repo: fontawesome/brands/github
+
+    # Coloring
+    palette:
+      - light blue: "(prefers-color-scheme: light)"
+        scheme: default
+        primary: indigo
+        accent: indigo
+        toggle:
+          icon: material/weather-night
+          name: Switch to dark mode
+      - media: "(prefers-color-scheme: dark)"
+        scheme: slate
+        primary: black
+        accent: blue
+        toggle:
+          icon: material/weather-sunny
+          name: Switch to light mode
+
+    # Text rendering
+    font:
+      text: Roboto
+      code: Roboto Mono
+
+# Additional references
+extra:
+    # Footer links
+    social:
+      - icon: fontawesome/brands/github
+        link: https://github.com/simplenetes-io
+        name: Simplenetes GitHub organization
+      - icon: fontawesome/brands/twitter
+        link: https://twitter.com/bashlund
+        name: Thomas Backlund, creator of Simplenetes

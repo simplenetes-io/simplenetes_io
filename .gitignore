@@ -5,3 +5,4 @@ pod
 .pod.status
 pod.portmappings.conf
 pod.ingress.conf
+site
