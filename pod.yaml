@@ -2,7 +2,7 @@ api: 1.0.0-beta1
 runtime: podman
 podVersion: 1.1.15
 
-#ifdef ${DEVMODE}
+#iftrue ${DEVMODE}
 volumes:
     - name: nginx_content
       type: host
@@ -11,10 +11,10 @@ volumes:
 
 containers:
     - name: simplenetes_io
-#ifndef ${DEVMODE}
+#ifntrue ${DEVMODE}
       image: ghcr.io/simplenetes-io/simplenetes_io:${podVersion}
 #endif
-#ifdef ${DEVMODE}
+#iftrue ${DEVMODE}
       # In DEVMODE we use a vanilla nginx container and mount the files into it, to get the same
       # result as specified in Dockerfile.
       image: nginx:1.16.1-alpine
@@ -32,7 +32,7 @@ containers:
       signal:
           - sig: HUP
       expose:
-#ifdef ${DEVMODE}
+#iftrue ${DEVMODE}
           # A port without accept-proxy which we use when running the pod as it is in dev.
           - targetPort: 81
             hostPort: ${localPort}
@@ -50,13 +50,13 @@ containers:
                 - protocol: https
                   domain: www.simplenetes.io
                   redirectPrefix: https://simplenetes.io
-#ifndef ${allowHttp}
+#ifntrue ${allowHttp}
                 # http redirects to https
                 - protocol: http
                   domain: simplenetes.io www.simplenetes.io
                   redirectToHttps: true
 #endif
-#ifdef ${allowHttp}
+#iftrue ${allowHttp}
                 - protocol: http
                   domain: simplenetes.io
                   pathBeg: /
