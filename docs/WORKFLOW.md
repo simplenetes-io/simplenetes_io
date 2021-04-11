@@ -12,7 +12,7 @@ With Simplenetes we can with little efforts run local clusters which mimic your 
 
 If you are developing a single Pod which does not depend on any other micro services, then you could simply use the SinglePod development workflow for developing that service (see [FIRSTPOD.md](FIRSTPOD.md)). Then when you want to try it out in your local cluster you can step into this type of process.
 
-The trick in working with a dev-cluster locally in development mode is to set the `DEVMODE=true` variable in `cluster-vars.env`. In the `pod.yaml` this should make the pod mount the build directory for your project.
+The trick in working with a dev-cluster locally in development mode is to set the `podname_devmode=true` variable in `cluster-vars.env`. In the `pod.yaml` this should make the pod mount the build directory for your project.
 
 So when a pod is compiled and synced to the "cluster", which is just another directory on your laptop that pod can still mount the build directory and be always up to date on changes.
 
