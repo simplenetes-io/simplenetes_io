@@ -12,16 +12,19 @@ The Daemon `(simplenetesd)` should always installed on all hosts in your cluster
 
 ## Prerequisites
 To run pods locally you will need `podman version>=1.8.1` installed and `slirp4netns` to run pods as rootless. To install Podman and slirp4netns please refer to the official documentation: https://podman.io/getting-started/installation
-Alternatively, check your distribution's package manager. It's usually not more complicated than `sudo pacman -S podman`.
+Alternatively, check your distribution's package manager. It's usually not more complicated than `sudo apt-get install podman`.
 
 Since Podman being root-less we want to allow non-root users to bind ports from 80 and upwards.
-This row should be put into 1/etc/sysctl.conf`:  
+
+This row should be put into `/etc/sysctl.conf`:  
 `net.ipv4.ip_unprivileged_port_start=80`
+
+Then issue `sudo sysctl --system`.
 
 
 ## Installing `sns`
 `sns` is a standalone executable, written in POSIX-compliant shell script and will run anywhere there is Bash/Dash/Ash installed.
-It interacts with a few programs in the OS, such as `grep`, `awk`, `date` and others. The usage of these tools is tailored to work under both Linux and BSD variants such as OSX. It might even run under Windows WSL.
+It interacts with a few programs in the OS, such as `grep`, `awk`, `date` and others. The usage of these tools is tailored to work under both GNU/Linux, BusyBox/Linux and BSD variants such as OSX. It might even run under Windows WSL.
 
 Install straight from GitHub, as:  
 ```sh
