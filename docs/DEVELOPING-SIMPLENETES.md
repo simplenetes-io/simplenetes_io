@@ -3,10 +3,10 @@
 Space version 1.5.0 or later is required.
 
 ## Running the Simplenetes Space Module
-When developing the module, we can run it without having to create new releases for each change.
+When developing the module, we can run it without having to create a new release for each change.
 
 Set the `CLUSTERPATH` variable and optionally the `PODPATH` variable when running this space module.  
-The `PODPATH` variable defaults to `${CLUSTERPATH}/../pods`.
+The `PODPATH` variable defaults to `${CLUSTERPATH}/_pods`.
 
 ```sh
 export CLUSTERPATH=...
