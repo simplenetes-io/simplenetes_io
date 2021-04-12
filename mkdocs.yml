@@ -17,7 +17,6 @@ nav:
       - Hello Production!: PROVISIONING.md
     - Production cluster: PRODCLUSTER.md
     - Workflow: WORKFLOW.md
-    - Management: MANAGEMENT.md
     - Image registries: REGISTRY.md
     - Certificates: LETSENCRYPT.md
     - CI/CD: CICD.md
