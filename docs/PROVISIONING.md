@@ -80,7 +80,7 @@ Relative paths are relative to the host directory inside the cluster repo, for e
 
 Setting the key paths as a way to keep keys outside of the cluster repo can be desirable in many situations for increased security.  
 
-You can do that both for super user keys `(--super-user-keyfile=)` and for regular user keys `(--key-file=)`.  
+You can do that both for super user keys `(--super-user-keyfile=)` and for regular user keys `(--keyfile=)`.  
 It is possible to replace the host keys at any time in case you want to have them outside of the cluster repo at a later stage.
 
 
