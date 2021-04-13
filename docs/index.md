@@ -58,9 +58,9 @@ In which cases should I *not* use Simplenetes over Kubernetes?
 
 Simplenetes has three parts:
 
-- The `simplenetes` repo, which is the `sns` tool to setup and manages the cluster
-- The `podc` repo, which is the pod compiler taking a pod yaml spec into an executable standalone shell script sied to manage the pod
-- The `simplenetesd` repo, which is the daemon running on each host to start and stop pods, according to given state.
+- The _simplenetes_ repo, which is the `sns` tool to setup and manages the cluster;
+- The _podc_ repo, which is the pod compiler (`podc`) taking a pod yaml spec into an executable standalone shell script sied to manage the pod;
+- The _simplenetesd_ repo, which is the daemon (`simplenetesd`) running on each host to start and stop pods, according to given state.
 
 Look up in the documentation sections for topics and HOWTO get started working with Simplenets Clusters.
 
