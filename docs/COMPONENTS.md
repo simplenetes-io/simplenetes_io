@@ -89,9 +89,9 @@ Following GitOps procedures the sync will not be allowed if the cluster repo bra
 
 The Daemon running on each Host will pick up the changes and manage the state changes of the pods.
 
-Setting up the Cluster with its Virtual Machines is describe in the [Provisioning a production cluster](PROVISIONING.md) section.
+Setting up the Cluster with its Virtual Machines is described in the [Provisioning a production cluster](PROVISIONING.md) section.
 
-Typically the setup is a VPC with two load balancer hosts (exposed to the internet and are open to ports 80 and 443) combined with two worker hosts, which only accepts traffic coming from within the VLAN. Finally a fifth host, which we call the "backdoor", is exposed to the internet on port 22 (or some other port) for SSH connections. All SSH connections made to any load balancer or worker host is always jumped via the backdoor host. This reduces the surface area of attack since none of the known IP addresses are open to SSH connections coming from the Internet.
+Typically the setup is a VPC with two load balancer hosts (exposed to the internet and open on ports 80 and 443) combined with two worker hosts, which only accepts traffic coming from within the VLAN. Finally a fifth host, which we call the "backdoor", is exposed to the internet on port 22 (or some other port) for SSH connections. All SSH connections made to any load balancer or worker host is always jumped via the backdoor host. This reduces the surface area of attack since none of the known IP addresses are open to SSH connections coming from the Internet.
 
 ## Proxy and clusterPorts
 For Pods to be able to communicate with each other within the Cluster and across Hosts, there is a concept of `clusterPorts` and the `Simplenetes Proxy`.

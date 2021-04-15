@@ -1,6 +1,6 @@
 # Creating your first Simplenetes pods
 
-A Pod is described in a _YAML_ file and is compiled into a single executable, which is run together with podman (version >=1.8.1).
+A Pod is described in a _YAML_ file and is compiled into a single executable, which is run together with `podman` (version >=1.8.1).
 
 In this HOWTO we will create our first pods and see how easy it is to manage their lifecycles using the standalone executable.
 
@@ -21,8 +21,7 @@ mkdir mypod1
 cd mypod1
 ```
 
-Cop the below _YAML_ and put it in a file called `pod.yaml` inside the new pod directory.
-
+Copy the following _YAML_ contents and put them in a file called _pod.yaml_ inside the new pod directory:
 ```yaml
 api: 1.0.0-beta2
 podVersion: 0.0.1
@@ -65,9 +64,9 @@ We will see how to create a pod which we also want to work with in development m
 
 When developing a website, one can use many different backend servers and build technologies, be it nginx, hugo, expressjs, jekyll, Make, webpack, etc.
 
-It is often the case that developers run their projects without using containers when in development mode, but when using Simplenetes it is very straight forward to always run in containers. In this way development resembles production environment much better and you can have all your microservices available.
+It is often the case that developers run their projects without using containers when in development mode, but when using Simplenetes it is very straight forward to always run in containers. In this way, development resembles production environment more closely and you can have all your microservices available.
 
-Simplenetes has a simple way of separating between processes such as _development_ and _production_ mode for when working with pods by using a basic text _preprocessor_, as we will see in the `pod.yaml` below.
+Simplenetes has a simple way of separating between processes such as _development_ and _production_ mode for when working with pods by using a basic text _preprocessor_, as we will see in the _pod.yaml_ below.
 
 Create a new pod dir:  
 ```sh
@@ -75,7 +74,7 @@ mkdir mypod2
 cd mypod2
 ```
 
-This is our pod YAML. Copy it and save it as `pod.yaml` inside your new pod dir.  
+This is our pod YAML. Copy it and save it as _pod.yaml_ inside your new pod dir.  
 
 ```yaml
 api: 1.0.0-beta2
@@ -114,16 +113,16 @@ containers:
             hostPort: 8181
 ```
 
-Save the following as file `pod.env` alongside the `pod.yaml` file:  
+Save the following as file _pod.env_ alongside the _pod.yaml_ file:  
 ```sh
 devmode=true
 ```
 
-The blocks in the _YAML_ between the `#iftrue ${devmode} / #endif` directives will only be present when `devmode=true` in the `pod.env` file. The reverse is of course true for the _if not true_ `#ifntrue` directive.  
+The blocks in the _YAML_ between the `#iftrue ${devmode} / #endif` directives will only be present when `devmode=true` is set in the `pod.env` file. The reverse is of course true for the _if not true_ `#ifntrue` directive.  
 
-Using these simple text preprocessor directives we can easily switch our pod between dev and production mode.  
+Using these simple text preprocessor directives we can easily switch our pod between development and production mode.  
 
-When attaching a pod to a cluster project and compiling it targeting the cluster, this local `pod.env` file is ignored and values are instead read from the cluster-wide `cluster-vars.env` file instead, so there is no need in changing the `devmode` value from `true` to `false` in the `pod.env` file when going from devmode to production mode in this case.
+When attaching a pod to a cluster project and compiling it targeting the cluster, this local _pod.env_ file is ignored and values are instead read from the cluster-wide _cluster-vars.env_ file, so there is no need in changing the `devmode` value from `true` to `false` in the `pod.env` file when going from devmode to production mode in this case.
 
 The pod (in devmode) will mount the `./build` directory. This directory is expected to have _nginx_ content files.  
 
@@ -186,7 +185,7 @@ podc
 
 `podc` will generate an executable file simply named `pod`.
 
-At this stage you can observe the resulting _YAML_ from after the preprocessor stage by looking in the file `.pod.yaml`.
+At this stage you can observe the resulting _YAML_ from after the preprocessor stage by looking in the file _.pod.yaml_.
 
 Let's try and interact with the executable:  
 ```sh
@@ -205,7 +204,7 @@ If you see the error message
 [ERROR] Host port 8181 is busy, can't create the pod mypod2-0.0.1
 ```
 
-Then adjust the `expose/hostPort` value in the `pod.yaml` to a free port and recompile.
+Then adjust the `expose/hostPort` value in the _pod.yaml_ to a free port and recompile.
 
 ```sh
 # curl it
@@ -230,7 +229,7 @@ This will signal nginx to reload the configuration.
 
 How signals for pods are configured are specified in [https://github.com/simplenetes-io/podc/blob/master/PODSPEC.md](https://github.com/simplenetes-io/podc/blob/master/PODSPEC.md).
 
-Note that since the `nginx` process is running as the user `nginx`, it is important that the files inside `./build` have public read access allowed. This is normally the case but if you are running your development inside a VM with mounted dirs to your OS, public permissions sometimes gets stripped away.
+Note that since the `nginx` process is running as the user `nginx`, it is important that the files inside `./build` have public read access allowed. This is normally the case but if you are running your development inside a Virtual Machine with directories mounted to or from the host OS (also known as shared folders), public permissions sometimes get stripped away.
 
 Remove the pod when done:  
 ```sh
@@ -250,7 +249,7 @@ cd mypod3
 
 Create the following files inside the directory. It is the same as above, but with some added preprocessing directives and cluster port configurations.
 
-`pod.yaml`:  
+_pod.yaml_:  
 ```yaml
 api: 1.0.0-beta2
 podVersion: 0.0.1
@@ -316,6 +315,6 @@ CMD ["nginx", "-c", "/nginx_content/nginx.conf", "-g", "daemon off;"]
 
 With this setup you can have a pod working for local development but also which can be released properly into a cluster.
 
-Your build process should aim at building a docker image which is tagged and pushed properly, then the `pod.yaml` `image` value needs to be set to that new image version.
+Your build process should aim at building a docker image which is tagged and pushed properly, then the _pod.yaml_ `image` value needs to be set to that new image version.
 
 For a living example of this look the [Simplenetes website pod](simplenetes-io).
