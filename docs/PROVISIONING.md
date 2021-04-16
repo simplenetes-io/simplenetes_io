@@ -18,20 +18,19 @@ cd prod-cluster
 In the next step we will create the virtual machines and gather the data we need to create the hosts representations on disk.
 
 ## 2. Create our Virtual Machines
-There are many ways to accomplish this, both in automated fashions but also manually. In both cases the important things to accomplish are:  
+There are many ways to accomplish this, including automated or manual ways. In both cases the important things to accomplish are:  
 
 1.  Create a virtual machine (a $10 machine is most often enough)
-    Create it with a CentOS 8 image. Other images can work also, important thing is that it is a GNU/Linux box using `systemd` as init system and that `podman` can be installed onto it.
-    CentOS and Podman both coming from RedHat makes a reliable combo.
-    The firewall supported is firewalld, which comes with CentOS. Please do use a distro with firewalld.
+    Create it with a CentOS 8 image. Other images may also work. The important thing is that it is a GNU/Linux box using `systemd` as init system and that `podman` can be installed onto it.
+    CentOS and Podman both coming from RedHat makes CentOS a reliable combo.
+    The firewall supported is `firewalld`, which comes with CentOS. Please do use a distro with `firewalld`.
     Create the machine with internal networking/private IP enabled.
-2.  Make sure all VMS which are to be loadbalancers are exposed to the public internet, having a public IP.
-3.  Make sure worker machines are not exposed to the public internet, but only on the internal network, they do not need a public IP but it is fine if they have because using firewalld
-    we shut out any public traffic.
+2.  Make sure all VMS which are to be loadbalancers are exposed to the public internet. That is, all machines have public IPs associated to them.
+3.  Make sure worker machines are not exposed to the public internet, but only on the internal network. Workers do not need a public IP, but it is fine if happen to do because `firewalld` can be used to block public incoming traffic.
 
 After you have created the VMs then let `sns` provision the machines for you to work with Simplenetes.
 
-We will here show how to manually create a small cluster consisting of one loadbalancer and one worker machine on Linode.
+We will now approach how to manually create a small cluster consisting of one loadbalancer and one worker machine on Linode.
 
 We will also create a  _backdoor_ machine. A backdoor machine is an entry point into the cluster for our management tool. We want this because we want to keep the worker machines unexposed to the public internet but at the same to we need to access them via SSH. Another name for a _Back door machine_ host would be a _Jump host_.
 
@@ -75,8 +74,8 @@ If your cloud provider creates a superuser for you then set that superuser below
 ### Backdoor host
 
 If your cloud vendor provided you with an existing super user, add the options `--super-user-name=given` and `--super-user-keyfile=path`.
-Is is fine to have the keyfile stored outside the cluster repo.  
-Relative paths are relative to the host directory inside the cluster repo, for example `../../secret-keys/id_rsa` gives you the possibility to store keys in a sibling directory to the cluster repo directory.
+It is fine to have the keyfile stored outside the cluster repo.  
+Relative paths are relative to the host directory inside the cluster repo. For example `../../secret-keys/id_rsa` gives you the possibility to store keys in a sibling directory to the cluster repo directory.
 
 Setting the key paths as a way to keep keys outside of the cluster repo can be desirable in many situations for increased security.  
 
@@ -88,7 +87,8 @@ It is possible to replace the host keys at any time in case you want to have the
 sns host register backdoor --address=<PubIP-Backdoor>
 ```
 
-If you were provided with an already existing superuser with a keyfile you will not set it up here again, otherwise do that now:  
+If you were provided with an already existing superuser with a keyfile you will not set it up here again. In this case, skip the following step.
+Otherwise, proceed with that now:  
 
 Add the `--root-keyfile=path` if the root login uses a key instead of password.
 
@@ -104,7 +104,7 @@ Now we disable root login, using the super user accounts.
 sns host setup disableroot backdoor
 ```
 
-Configure firewalld on the host, but skip setting up things which is irrelevant to the backdoor.  
+Configure `firewalld` on the host, but skip setting up things which is irrelevant to the backdoor.  
 ```sh
 sns host setup install backdoor --skip-podman --skip-systemd
 ```
@@ -117,7 +117,7 @@ sns host state backdoor -s disabled
 
 ### Loadbalancer1
 
-Lets register the loadbalancer1. You can add options in the same way as for the *backdoor1*.
+Let's register the _loadbalancer1_. You can add options in the same way as for the *backdoor1*.
 
 We add `--jump-host` so that we can manage this host via the internal network.  
 We add `--expose` so that we open ports in the firewall which the loadbalancer wants incoming traffic on.
@@ -158,7 +158,7 @@ sns host init worker1
 
 ### About hosts
 
-Each host is created as a sub directory inside the cluster project. Each host has a new `id_rsa` key generated (unless configured differently) and a `host.env` vars file created. A `host-superuser.env` file is also created for super user access to the host.
+Each host is created as a sub directory inside the cluster project. Each host has a new `id_rsa` key generated (unless configured differently) and a _host.env_ file (listing environment variables) created. A _host-superuser.env_ file is also created for super user access to the host.
 
 Using the superuser account we have provisioned the host by installing podman, creating the regular user and performing configurations. The `EXPOSE` variable in the `host.env` file states which ports should be open to the public. This is then configured using `firewalld` (if it is installed):  
 
