@@ -2,7 +2,7 @@
 
 This document gives an overview of everything involved in _Simplenetes_.
 
-At an architechural view there is nothing more to know than what is in this document.
+At an architectural view there is nothing more to know than what is in this document.
 
 The goal for _Simplenetes_ is to be composed of as few moving parts as possible, while having a robust and easy to understand design. You will not find any `iptables` nor any `etcd` cluster.
 
@@ -49,13 +49,13 @@ A Virtual Machine, a bare metal machine, or your laptop. It is part of a Cluster
 
 A Host runs Pods.
 
-Hosts are in our terminology divided into _load balancers_ and _workers_. Load balancers are exposed to the public internet, while workers are not. Workers receive traffic from the loadbalancers via the internal proxy.
+Hosts are in our terminology divided into _load balancers_ and _workers_. Load balancers are exposed to the public internet, while workers are not. Workers receive traffic from the load balancers via the internal proxy.
 
 A Host is expected to be configured with `podman` if it is to run container pods (`sns` will set this up for you).
 
 If a Host is meant to directly receive public internet traffic it would likely be running an Ingress pod.
 
-Any pod could bind to the host network or map ports to the host interface to be publically exposed, as long as the firewall rules allow the specified traffic.
+Any pod could bind to the host network or map ports to the host interface to be publicly exposed, as long as the firewall rules allow the specified traffic.
 
 Hosts which are workers usually are not exposed directly to the internet, but receive traffic from the internal proxy which is then proxied to pods running on the host according to the pod ingress rules.
 
