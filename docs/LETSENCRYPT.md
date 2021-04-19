@@ -4,7 +4,7 @@ The Ingress pod can be configured to fetch a certificate bundle from an internal
 
 Run the Letsencrypt pod **strictly as a single instance in the cluster**, otherwise there will be a loadbalancing roulette when the Let's Encrypt (LE) service is connecting to our _LE_ agent to verify our request.
 
-Configure the ingress pods to be using the _fetche _` service by setting `ingress_useFetcher=true` in _cluster-vars.env_. If the fetcher is not used then no Let's Encrypt certificates will be fetched, which could be what you want if you are providing the certificates yourself (see more information about this case further on this section).
+Configure the ingress pods to be using the _fetcher_` service by setting `ingress_useFetcher=true` in _cluster-vars.env_. If the fetcher is not used then no Let's Encrypt certificates will be fetched, which could be what you want if you are providing the certificates yourself (see more information about this case further on this section).
 
 Add all domains to be issued or renewed to the Letsencrypt pods configuration file `_config/certs_list/certs.txt`. Renewals are automated and happens 20 days prior to certificate expiration date.
 
