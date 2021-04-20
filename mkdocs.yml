@@ -76,7 +76,3 @@ extra:
       - icon: fontawesome/brands/twitter
         link: https://twitter.com/bashlund
         name: Thomas Backlund, creator of Simplenetes
-
-# Extensions
-markdown_extensions:
-  - attr_list
