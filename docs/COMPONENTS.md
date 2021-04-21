@@ -134,3 +134,5 @@ The Daemon can be run as a foreground process in user mode instead of as root wh
 
 ## The sns management tool
 The [_simplenetes_](https://github.com/simplenetes-io/simplenetes) repo provides the `sns` tool used to create and manage clusters.
+
+The [next section](INSTALLING.md) covers the installation of _Simplenetes_ `sns` program, as well as auxiliary programs.
