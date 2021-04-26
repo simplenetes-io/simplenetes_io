@@ -1,19 +1,24 @@
 # Workflow for working with your development and releases
 
-**WORK IN PROGRESS**
+The following is an example of how you might go about getting started with **Simplenetes** and getting into a productive workflow.  
 
-Following is an example of how you might go by getting started with Simplenetes and getting into a productive workflow.
+## Microservices
+One of the tricky parts of working with microservices is how to run, develop and test them locally since they often depend on each other.
 
-One of the tricky parts of working with micro services is how to run, develop and test them locally since they depend on each other.
+For example, when working with a single _Node.js_ process, during development, it is quite often the case to run it directly on the base _OS_ (bare metal) instead of running it inside a container. When one _Node.js_ process needs to communicate with another process, as microservices are designed to do, it can start getting tricky (at times, to the point of becoming messy) trying to run all processes outside of containers.
 
-For example working with a single NodeJS process it is common to run it straight on the OS and not in a container, when developing. But when one NodeJS process needs to communicate with another process, as micro services are designed to do, it can start getting tricky and messy running all processes outside of containers.
+With _Simplenetes_ it is possible, with little efforts, to run local Clusters which mimic microservices architecture while staying in the same snappy local workflow on your own computer.
 
-With Simplenetes we can with little efforts run local clusters which mimic your micro services architecture (but running on your laptop) but stay in the same snappy workflow as when working straight on your laptop.
+## Single service or Pod
+If you are developing with focus on a single Pod, without the need or dependency on other microservices, then you could simply use the single Pod development workflow for developing the service (see the [_Creating your first Simplenetes pods_](FIRSTPOD.md) section). Then when willing to try it out in a local Cluster, it is possible to step into this type of process.
 
-If you are developing a single Pod which does not depend on any other micro services, then you could simply use the SinglePod development workflow for developing that service (see [FIRSTPOD.md](FIRSTPOD.md)). Then when you want to try it out in your local cluster you can step into this type of process.
+## Development mode
+The important part when working with a development Cluster locally is to set the `<podname>_devmode` variable to `true` in `cluster-vars.env` e.g. `podname_devmode=true`. In the _pod.yaml_ file, this should make the Pod mount the _build_ directory for your project.   
+So, when a pod is compiled and synced to the Cluster, which is just another directory on your laptop, that pod can still mount the build directory. Changes to the directory are reflected to the Cluster, in a way that it always remains up to date.
 
-The trick in working with a dev-cluster locally in development mode is to set the `podname_devmode=true` variable in `cluster-vars.env`. In the `pod.yaml` this should make the pod mount the build directory for your project.
-
-So when a pod is compiled and synced to the "cluster", which is just another directory on your laptop that pod can still mount the build directory and be always up to date on changes.
-
-Some service might need to get signalled to properly reload updates, for example when updating a `nginx.conf` file the nginx process needs to get a `SIGHUP`. If the pod has properly configured signals then it is easy to do `sns pod signal podname` to signal the pod.
+## Iterating
+About up-to-date state and synchronization, the involved services may need to get signalled to properly reload updates. For example, when updating a _nginx.conf_ file the `nginx` process expects to get a hang up signal (`SIGHUP`) so that it knows the configuration needs to be reloaded.  
+If the Pod has properly configured signals, then signalling the Pod is as easy as executing the following command:
+```
+sns pod signal podname
+```
