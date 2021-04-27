@@ -1,27 +1,25 @@
 # Setting up CI/CD for your cluster
 
-**WORK IN PROGRESS**
-
-The point of CI/CD is to have an automated release flow. There are many ways of achieving this in Simplenetes, what we want to do in the end is to perform an `sns cluster sync`, but the interesting questions are how do we get to that point.
+The point of [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) and [Continuous Delivery](https://en.wikipedia.org/wiki/Continuous_delivery) (_CI/CD_) is to have an automated release flow. There are many ways of achieving this in _Simplenetes_. In the context of _Simplenetes_, what we always want to do in the end is to perform a cluster synchronization with `sns cluster sync`. The interesting questions come when analyzing how do we get to that point.
 
 The release pipeline can potentially be run in three different places:  
 
-    -  from the Pod repo
-    -  from the Cluster Project repo or,
-    -  from the Management Project repo
+-  from the Pod repository;
+-  from the Cluster Project repo;
+-  from the Management Project repo.
 
-Most often the release pipeline is run from the Pod repo, because we want to swiftly release a new pod version when it is pushed.
+Most often the release pipeline is run from the Pod repo, because we want to swiftly release a new Pod version as soon as it is committed and pushed.
 
-Releasing from Cluster Project repo pipelines and from Management Project repo pipelines are very similar to each other. The difference is merely if you have extracted the SSH keys out from the Cluster Project into the Management Project or not.
+Releasing from Cluster Project repo pipelines and from Management Project repo pipelines are very similar to each other. The difference is merely if you have extracted the _SSH_ keys out from the Cluster Project into the Management Project or not.
 
 ## Release directly from within the Pod repo pipelines
-The pro's of this approach is that it is straight forward and we can get a fully automated release cycle.
+The pros of this approach is that it is straight forward and we can get a fully automated release cycle this way.
 
-The cons are that the pod project will need access to cluster keys to make the sync; which in many cases is not an issue because the Dev and The Ops people are the same people.
-Another con is that we don't want to release many pods simultaneously because it might cause a branch out of the cluster repo and some releases might then get rejected.
+The cons are that the Pod project will need access to Cluster keys to make the synchronization. In many cases, sharing the Cluster keys is not an issue because both the Dev and The Ops people are the same people.  
+Another con is that we don't want to release many Pods simultaneously because it might cause a branch out of the Cluster repo and some releases might then get rejected.
 
-This is an example pipeline which is triggered whenever the pod repo pipeline has performed a new build and tagged it for release:  
-
+### Example release from Pod repository
+This is an example pipeline which is triggered whenever the Pod repo pipeline has performed a new build and tagged it for release:  
 ```sh
 set -e
 
@@ -45,12 +43,13 @@ sns pod release "${podname}" -m soft -p
 ```
 
 ## Release from the Cluster/Management project repo pipelines
-The pro's are that we can separate access to the pod repo from access to the SSH keys and that we can release a number of pods simultaneously.
+The pros of this approach are that we can separate access to the Pod repo from access to the _SSH_ keys, and also that we can release a number of Pods simultaneously.
 
-The con's are that the pipelines need to be triggered in some way (manually) to be run when a new pod version has been pushed to the pod repo.
-Also that we need to pull the new pod and possibly the cluster project if this is a management project, so it involves a few more steps to get it going.
+The cons are that the pipelines need to be manually triggered in some way, expected to be run when a new Pod version has been pushed to the Pod repo.
+Another drawback is that we need to pull the new Pod and possibly the Cluster project if this is a management project, so it involves a few more steps to get it going.
 
-The process for Cluster Project and Management Project are almost the same, we'll see the cluster project here:  
+### Example release from Cluster or Management Project repository
+The process for Cluster Project and Management Project are almost the same. We cover the Cluster project case below:  
 ```sh
 set -e
 

@@ -1,24 +1,26 @@
 # Developing Simplenetes
 
-Space version 1.5.0 or later is required.
+## Requirements
+[_Space_](https://space.sh/) version `1.5.0` or later is required.
 
 ## Running the Simplenetes Space Module
 When developing the module, we can run it without having to create a new release for each change.
 
-Set the `CLUSTERPATH` variable and optionally the `PODPATH` variable when running this space module.  
+To do so, set the `CLUSTERPATH` variable and optionally the `PODPATH` variable when running this _Space_ module.  
 The `PODPATH` variable defaults to `${CLUSTERPATH}/_pods`.
 
+Example:
 ```sh
 export CLUSTERPATH=...
 space /
 ```
 
 ## Create a new release of the sns executable
-Simplenetes is built using [https://space.sh](Space) and requires Space to be installed to be built as a final standalone executable.
+> Note: _Simplenetes_ is built using [_Space.sh_](https://space.sh) and it requires _Space_ to be installed in order to build the final standalone executable.
 
-First install Space then run:  
+With _Space_ ready and available, run:  
 ```sh
 ./make.sh
 ```
 
-The new release is saved to `./release/sns`.
+The new release is saved to _./release/sns_.
